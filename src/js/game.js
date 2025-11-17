@@ -79,16 +79,22 @@ function moveCharacter() {
   characterElement.style.left = `${currentCol * CELL_SIZE_PX + offsetX}px`;
   characterElement.style.top = `${currentRow * CELL_SIZE_PX + offsetY}px`;
 }
-
+let intervalId = null;
 export function initializeGame() {
   createGameBoard();
-
   if (boardElement) {
     createCharacter();
-    setInterval(moveCharacter, MOVE_INTERVAL_MS);
+    intervalId = setInterval(moveCharacter, MOVE_INTERVAL_MS);
   } else {
     console.error(
       "Error: boardElement is not created. Cannot create character.",
     );
+  }
+}
+
+export function stopGame() {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
   }
 }
