@@ -9,6 +9,7 @@ let characterElement = null;
 let currentRow = -1;
 let currentCol = -1;
 let boardElement = null;
+let intervalId = null;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -34,10 +35,6 @@ function createGameBoard() {
 
   if (gameFieldContainer) {
     gameFieldContainer.appendChild(boardElement);
-  } else {
-    console.error(
-      "Error: Could not find the #game-field element to append the game board.",
-    );
   }
 }
 
@@ -79,16 +76,19 @@ function moveCharacter() {
   characterElement.style.left = `${currentCol * CELL_SIZE_PX + offsetX}px`;
   characterElement.style.top = `${currentRow * CELL_SIZE_PX + offsetY}px`;
 }
-let intervalId = null;
+
 export function initializeGame() {
+  if (intervalId) {
+    console.warn("Game is already running. Stop it first.");
+    return;
+  }
+
   createGameBoard();
   if (boardElement) {
+    currentRow = getRandomInt(0, BOARD_SIZE - 1);
+    currentCol = getRandomInt(0, BOARD_SIZE - 1);
     createCharacter();
     intervalId = setInterval(moveCharacter, MOVE_INTERVAL_MS);
-  } else {
-    console.error(
-      "Error: boardElement is not created. Cannot create character.",
-    );
   }
 }
 

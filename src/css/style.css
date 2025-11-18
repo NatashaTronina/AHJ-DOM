@@ -44,3 +44,23 @@ body {
     position: absolute; 
     transition: transform 0.5s ease-in-out; 
 }
+
+#stop-button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#stop-button:hover:not(:disabled) {
+    background-color: #cc0000;
+}
+#stop-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
